@@ -13,13 +13,13 @@ async function listContacts() {
 
 async function getContactById(contactId) {
     const contacts = await listContacts();
-    const result = contacts.find(item => item.contactId === contactId);
+    const result = contacts.find(({ id }) => id == contactId);
     return result || null;
 }
 
 async function removeContact(contactId) {
     const contacts = await listContacts();
-    const index = contacts.findIndex(item => item.contactId === contactId);
+    const index = contacts.findIndex(({ id }) => id == contactId)
     if (index === -1) {
         return null;
     }
@@ -28,7 +28,7 @@ async function removeContact(contactId) {
     return result;
 }
 
-async function addContact(name, email, phone) {
+async function addContact({ name, email, phone }) {
     const contacts = await listContacts();
     const newContact = {
         id: nanoid(),
